@@ -1,7 +1,7 @@
 /**
  * Base class for model implementation
  */
-export abstract class ApplicationModel {
+export abstract class AppModel {
 
   /**
    * Converter of backend data to model format by aliases
@@ -66,3 +66,8 @@ export abstract class ApplicationModel {
     return Object.prototype.toString.call(item) === '[object Object]';
   }
 }
+
+/**
+ * @deprecated Use the `AppModel` instead
+ */
+export const ApplicationModel = AppModel;
