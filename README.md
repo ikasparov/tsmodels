@@ -17,11 +17,11 @@ yarn add tsmodels --save
 ```
 
 ## Usage
-It is necessary to inherit the model from the class `ApplicationModel`:
+It is necessary to inherit the model from the class `AppModel`:
 ```typescript
-import { Alias, ApplicationModel } from 'tsmodels';
+import { Alias, AppModel } from 'tsmodels';
 
-export class User extends ApplicationModel {
+export class User extends AppModel {
   // ...
 }
 ```
@@ -39,7 +39,7 @@ Decorator of fields for model
 ```typescript
 // ...
 
-export class Town extends ApplicationModel {
+export class Town extends AppModel {
   @Alias('main_title') public mainTitle: string;
 }
 ```
@@ -48,7 +48,7 @@ export class Town extends ApplicationModel {
 ```typescript
 // ...
 
-export class User extends ApplicationModel {
+export class User extends AppnModel {
   @Alias() public name: string;
   @Alias('last_name') public lastName: string;
   @Alias('towns', Town) public towns: Town[];
