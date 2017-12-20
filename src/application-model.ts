@@ -1,7 +1,7 @@
 /**
  * Base class for model implementation
  */
-export abstract class AppModel {
+export abstract class Model {
 
   /**
    * Converter of backend data to model format by aliases
@@ -68,6 +68,11 @@ export abstract class AppModel {
 }
 
 /**
- * @deprecated Use the `AppModel` instead
+ * @deprecated Use the `AppModel` instead. Will be remove in version 1.0.0
  */
-export const ApplicationModel = AppModel;
+export const ApplicationModel = Model;
+
+/**
+ * @deprecated Use the `AppModel` instead. Will be remove in version 1.0.0
+ */
+export const AppModel = Model;
