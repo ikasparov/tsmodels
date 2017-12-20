@@ -34,7 +34,7 @@ export abstract class Model {
    * @return new object
    * @public
    */
-  public _toJSON(): Object {
+  public _toJSON() {
     const obj = {};
 
     this.constructor['_alias']
@@ -56,13 +56,13 @@ export abstract class Model {
     return obj;
   }
 
-  private _createObject(item, obj) {
+  private _createObject(item, obj): Object {
     const newObj = new item['type']();
     newObj._fromJSON(obj);
     return newObj;
   }
 
-  private _isObject(item) {
+  private _isObject(item): boolean {
     return Object.prototype.toString.call(item) === '[object Object]';
   }
 }
