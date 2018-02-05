@@ -17,9 +17,9 @@ export abstract class Model {
 
           if (item['type']) {
             if (Array.isArray(newValue)) {
-              this[item['value']] = newValue.map(x => this._createObject(item, x));
+              this[item['key']] = newValue.map(x => this._createObject(item, x));
             } else if (this._isObject(newValue)) {
-              this[item['value']] = this._createObject(item, newValue);
+              this[item['key']] = this._createObject(item, newValue);
             }
           } else {
             this[item['key']] = value[item['value']];
