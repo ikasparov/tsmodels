@@ -1,6 +1,6 @@
 {
   "name": "tsmodels",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "An implementation of models for TypeScript",
   "main": "package/index.js",
   "typings": "package/index.d.ts",
@@ -27,6 +27,8 @@
   "devDependencies": {
     "awesome-typescript-loader": "^3.4.1",
     "typescript": "^2.7.1",
-    "webpack": "^3.10.0"
-  }
+    "webpack": "^3.10.0",
+    "copy-webpack-plugin": "^4.4.1"
+  },
+  "dependencies": {}
 }
