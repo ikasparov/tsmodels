@@ -127,30 +127,26 @@ var Model = /** @class */ (function () {
      * Converter of backend data to model format by aliases
      *
      * @param value - data from backend
-     * @param {boolean} shouldUpdateAll - do we need to make update for all variables or only for not defined?
      * @public
      */
-    Model.prototype._fromJSON = function (value, shouldUpdateAll) {
+    Model.prototype._fromJSON = function (value) {
         var _this = this;
-        if (shouldUpdateAll === void 0) { shouldUpdateAll = true; }
         Object.keys(this.constructor['_alias'])
             .forEach(function (key) {
-            _this._createItem(value, _this.constructor['_alias'][key], shouldUpdateAll);
+            _this._createItem(value, _this.constructor['_alias'][key]);
         });
     };
     /**
      *
      * @param value - data from backend
-     * @param {boolean} shouldUpdateAll - do we need to make update for all variables or only for not defined?
      * @private
      */
-    Model.prototype._updateFromJSON = function (value, shouldUpdateAll) {
+    Model.prototype._updateFromJSON = function (value) {
         var _this = this;
-        if (shouldUpdateAll === void 0) { shouldUpdateAll = true; }
         Object.keys(value).forEach(function (key) {
             var item = _this.constructor['_alias'][key];
             if (item) {
-                _this._createItem(value, item, shouldUpdateAll);
+                _this._createItem(value, item);
             }
         });
     };
@@ -188,13 +184,9 @@ var Model = /** @class */ (function () {
     Model.prototype._isObject = function (item) {
         return Object.prototype.toString.call(item) === '[object Object]';
     };
-    Model.prototype._createItem = function (value, item, shouldUpdateAll) {
+    Model.prototype._createItem = function (value, item) {
         var _this = this;
-        if (shouldUpdateAll === void 0) { shouldUpdateAll = true; }
         var newValue = value[item['value']];
-        if (!shouldUpdateAll && this[item['key']] !== void 0) {
-            return;
-        }
         if (item['type']) {
             if (Array.isArray(newValue)) {
                 this[item['key']] = newValue.map(function (x) { return _this._createObject(item, x); });

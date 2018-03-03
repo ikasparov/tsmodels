@@ -7,14 +7,13 @@ export abstract class Model {
    * Converter of backend data to model format by aliases
    *
    * @param value - data from backend
-   * @param {boolean} shouldUpdateAll - do we need to make update for all variables or only for not defined?
    * @public
    */
-  public _fromJSON(value, shouldUpdateAll = true) {
+  public _fromJSON(value) {
     Object.keys(this.constructor['_alias'])
       .forEach(
         key => {
-          this._createItem(value, this.constructor['_alias'][key], shouldUpdateAll);
+          this._createItem(value, this.constructor['_alias'][key]);
         }
       );
   }
@@ -22,14 +21,13 @@ export abstract class Model {
   /**
    *
    * @param value - data from backend
-   * @param {boolean} shouldUpdateAll - do we need to make update for all variables or only for not defined?
    * @private
    */
-  public _updateFromJSON(value, shouldUpdateAll = true) {
+  public _updateFromJSON(value) {
     Object.keys(value).forEach((key) => {
       const item = this.constructor['_alias'][key];
       if (item) {
-        this._createItem(value, item, shouldUpdateAll);
+        this._createItem(value, item);
       }
     })
   }
@@ -72,10 +70,8 @@ export abstract class Model {
     return Object.prototype.toString.call(item) === '[object Object]';
   }
 
-  private _createItem(value, item, shouldUpdateAll = true) {
+  private _createItem(value, item) {
     const newValue = value[item['value']];
-
-    if (!shouldUpdateAll && this[item['key']] !== void 0) { return; }
 
     if (item['type']) {
       if (Array.isArray(newValue)) {

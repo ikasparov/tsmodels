@@ -6,17 +6,15 @@ export declare abstract class Model {
      * Converter of backend data to model format by aliases
      *
      * @param value - data from backend
-     * @param {boolean} shouldUpdateAll - do we need to make update for all variables or only for not defined?
      * @public
      */
-    _fromJSON(value: any, shouldUpdateAll?: boolean): void;
+    _fromJSON(value: any): void;
     /**
      *
      * @param value - data from backend
-     * @param {boolean} shouldUpdateAll - do we need to make update for all variables or only for not defined?
      * @private
      */
-    _updateFromJSON(value: any, shouldUpdateAll?: boolean): void;
+    _updateFromJSON(value: any): void;
     /**
      * Converter of model format to backend data by aliases
      *
@@ -26,7 +24,7 @@ export declare abstract class Model {
     _toJSON(): {};
     private _createObject(item, obj);
     private _isObject(item);
-    private _createItem(value, item, shouldUpdateAll?);
+    private _createItem(value, item);
 }
 /**
  * @deprecated Use the `AppModel` instead. Will be remove in version 1.0.0
