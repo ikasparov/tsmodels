@@ -96,12 +96,15 @@ __export(__webpack_require__(2));
 Object.defineProperty(exports, "__esModule", { value: true });
 function Alias(alias, type) {
     return function (target, propertyKey) {
-        target.constructor['_alias'] = target['constructor']['_alias'] || [];
-        target.constructor['_alias'].push({
-            key: propertyKey,
-            value: alias || propertyKey,
-            type: type
-        });
+        target.constructor['_alias'] = target['constructor']['_alias'] || {};
+        var value = alias || propertyKey;
+        if (!target.constructor['_alias'][value]) {
+            target.constructor['_alias'][value] = {
+                key: propertyKey,
+                value: value,
+                type: type
+            };
+        }
     };
 }
 exports.Alias = Alias;
@@ -123,24 +126,27 @@ var Model = /** @class */ (function () {
     /**
      * Converter of backend data to model format by aliases
      *
-     * @param value data from backend
+     * @param value - data from backend
      * @public
      */
     Model.prototype._fromJSON = function (value) {
         var _this = this;
-        this.constructor['_alias']
-            .forEach(function (item) {
-            var newValue = value[item['value']];
-            if (item['type']) {
-                if (Array.isArray(newValue)) {
-                    _this[item['key']] = newValue.map(function (x) { return _this._createObject(item, x); });
-                }
-                else if (_this._isObject(newValue)) {
-                    _this[item['key']] = _this._createObject(item, newValue);
-                }
-            }
-            else {
-                _this[item['key']] = value[item['value']];
+        Object.keys(this.constructor['_alias'])
+            .forEach(function (key) {
+            _this._createItem(value, _this.constructor['_alias'][key]);
+        });
+    };
+    /**
+     *
+     * @param value - data from backend
+     * @private
+     */
+    Model.prototype._updateFromJSON = function (value) {
+        var _this = this;
+        Object.keys(value).forEach(function (key) {
+            var item = _this.constructor['_alias'][key];
+            if (item) {
+                _this._createItem(value, item);
             }
         });
     };
@@ -177,6 +183,21 @@ var Model = /** @class */ (function () {
     };
     Model.prototype._isObject = function (item) {
         return Object.prototype.toString.call(item) === '[object Object]';
+    };
+    Model.prototype._createItem = function (value, item) {
+        var _this = this;
+        var newValue = value[item['value']];
+        if (item['type']) {
+            if (Array.isArray(newValue)) {
+                this[item['key']] = newValue.map(function (x) { return _this._createObject(item, x); });
+            }
+            else if (this._isObject(newValue)) {
+                this[item['key']] = this._createObject(item, newValue);
+            }
+        }
+        else {
+            this[item['key']] = value[item['value']];
+        }
     };
     return Model;
 }());
