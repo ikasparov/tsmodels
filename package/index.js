@@ -159,9 +159,10 @@ var Model = /** @class */ (function () {
     Model.prototype._toJSON = function () {
         var _this = this;
         var obj = {};
-        this.constructor['_alias']
-            .forEach(function (item) {
-            var value = _this[item['key']];
+        Object.keys(this.constructor['_alias'])
+            .forEach(function (key) {
+            var value = _this[key];
+            var item = _this.constructor['_alias'][key];
             if (item['type']) {
                 if (Array.isArray(value)) {
                     obj[item['value']] = value.map(function (x) { return x._toJSON(); });

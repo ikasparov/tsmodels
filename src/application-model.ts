@@ -41,10 +41,11 @@ export abstract class Model {
   public _toJSON() {
     const obj = {};
 
-    this.constructor['_alias']
+    Object.keys(this.constructor['_alias'])
       .forEach(
-        item => {
-          const value = this[item['key']];
+        key => {
+          const value = this[key];
+          const item = this.constructor['_alias'][key];
 
           if (item['type']) {
             if (Array.isArray(value)) {
