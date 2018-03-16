@@ -1,6 +1,6 @@
 {
   "name": "tsmodels",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "An implementation of models for TypeScript",
   "main": "package/index.js",
   "typings": "package/index.d.ts",
