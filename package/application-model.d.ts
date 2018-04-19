@@ -18,10 +18,11 @@ export declare abstract class Model {
     /**
      * Converter of model format to backend data by aliases
      *
+     * @param {string[]} only - export only set fields (needs to set export names)
      * @return new object
      * @public
      */
-    _toJSON(): {};
+    _toJSON(only?: string[]): {};
     private _createObject(item, obj);
     private _isObject(item);
     private _createItem(value, item);

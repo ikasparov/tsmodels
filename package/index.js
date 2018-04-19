@@ -153,13 +153,18 @@ var Model = /** @class */ (function () {
     /**
      * Converter of model format to backend data by aliases
      *
+     * @param {string[]} only - export only set fields (needs to set export names)
      * @return new object
      * @public
      */
-    Model.prototype._toJSON = function () {
+    Model.prototype._toJSON = function (only) {
         var _this = this;
         var obj = {};
-        Object.keys(this.constructor['_alias'])
+        var keys = Object.keys(this.constructor['_alias']);
+        if (only) {
+            keys = keys.filter(function (x) { return only.indexOf(x) > -1; });
+        }
+        keys
             .forEach(function (key) {
             var value = _this[key];
             var item = _this.constructor['_alias'][key];

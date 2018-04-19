@@ -35,13 +35,19 @@ export abstract class Model {
   /**
    * Converter of model format to backend data by aliases
    *
+   * @param {string[]} only - export only set fields (needs to set export names)
    * @return new object
    * @public
    */
-  public _toJSON() {
+  public _toJSON(only?: string[]) {
     const obj = {};
+    let keys = Object.keys(this.constructor['_alias']);
 
-    Object.keys(this.constructor['_alias'])
+    if (only) {
+      keys = keys.filter(x => only.indexOf(x) > -1)
+    }
+
+    keys
       .forEach(
         key => {
           const value = this[key];
