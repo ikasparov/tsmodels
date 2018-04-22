@@ -1,8 +1,7 @@
 {
   "name": "tsmodels",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "description": "An implementation of models for TypeScript",
-  "keywords": "typescript ts model angular ngx angular-models aliases convert instance",
   "main": "package/index.js",
   "typings": "package/index.d.ts",
   "scripts": {
@@ -31,5 +30,9 @@
     "webpack": "^3.10.0",
     "copy-webpack-plugin": "^4.4.1"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "keywords": [
+    "typescript", "ts", "model", "angular", "ngx", "angular-models", "aliases",
+    "convert", "instance"
+  ],
 }
