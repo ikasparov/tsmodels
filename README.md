@@ -29,7 +29,8 @@ For the model instance, methods will be available `_fromJSON(value)` and `_toJSO
 
 ### Model clear static methods
 
-- Model.new<modeType>(ModelType, data) - Generate the instance of passed model and fill the passed data
+- `Model.new<modeType>(<model-type>, <data>)` - Creates an instance of pass model class with data
+- `Model.newCollection<modeType>(<model-type>, <data[]>)` - Creates an instances collection of pass model class with data array
 
 ### @Alias(...)
 Decorator of fields for model

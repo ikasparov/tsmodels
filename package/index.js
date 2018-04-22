@@ -126,7 +126,7 @@ var Model = /** @class */ (function () {
     /**
      * Create an instance of pass model class with data
      *
-     * @param data - json data of modelz
+     * @param data - json data of model
      * @param {Type<T extends Model>} model - model class to instance
      * @returns {T} - an instance of new model
      */
@@ -134,6 +134,20 @@ var Model = /** @class */ (function () {
         var instance = new model();
         instance._fromJSON(data);
         return instance;
+    };
+    /**
+     * Create an instance of pass model class with data
+     *
+     * @param data[] - array of json data of model
+     * @param {Type<T extends Model>} model - model class to instance
+     * @returns {T} - an instance of new model
+     */
+    Model.newCollection = function (model, data) {
+        return data.map(function (x) {
+            var instance = new model();
+            instance._fromJSON(x);
+            return instance;
+        });
     };
     /**
      * Converter of backend data to model format by aliases
