@@ -33,6 +33,13 @@ Decorator of fields for model
 - Optional param `field_name` - Name of server format field
 - Optional param `type` - Optional. Type of related model
 
+### _toJSON()
+
+Convert model to object using Alias's metadata
+
+Parameters:
+  {string[]} only - Array of field's aliases to export
+
 ## Example
 
 ##### Town model
