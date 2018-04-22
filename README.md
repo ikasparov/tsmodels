@@ -27,6 +27,10 @@ export class User extends Model {
 ```
 For the model instance, methods will be available `_fromJSON(value)` and `_toJSON()` methods
 
+### Model clear static methods
+
+- Model.new<modeType>(ModelType, data) - Generate the instance of passed model and fill the passed data
+
 ### @Alias(...)
 Decorator of fields for model
 
