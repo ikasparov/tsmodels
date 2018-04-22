@@ -4,7 +4,7 @@ import { Type } from './type';
  */
 export declare abstract class Model {
     /**
-     * Create an instance of pass model class with data
+     * Creates an instance of pass model class with data
      *
      * @param data - json data of model
      * @param {Type<T extends Model>} model - model class to instance
@@ -12,7 +12,7 @@ export declare abstract class Model {
      */
     static new<T extends Model>(model: Type<T>, data: any): T;
     /**
-     * Create an instance of pass model class with data
+     * Creates an instances collection of pass model class with data array
      *
      * @param data[] - array of json data of model
      * @param {Type<T extends Model>} model - model class to instance

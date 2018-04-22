@@ -124,7 +124,7 @@ var Model = /** @class */ (function () {
     function Model() {
     }
     /**
-     * Create an instance of pass model class with data
+     * Creates an instance of pass model class with data
      *
      * @param data - json data of model
      * @param {Type<T extends Model>} model - model class to instance
@@ -136,7 +136,7 @@ var Model = /** @class */ (function () {
         return instance;
     };
     /**
-     * Create an instance of pass model class with data
+     * Creates an instances collection of pass model class with data array
      *
      * @param data[] - array of json data of model
      * @param {Type<T extends Model>} model - model class to instance
