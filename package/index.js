@@ -124,6 +124,18 @@ var Model = /** @class */ (function () {
     function Model() {
     }
     /**
+     * Create an instance of pass model class with data
+     *
+     * @param data - json data of modelz
+     * @param {Type<T extends Model>} model - model class to instance
+     * @returns {T} - an instance of new model
+     */
+    Model.new = function (model, data) {
+        var instance = new model();
+        instance._fromJSON(data);
+        return instance;
+    };
+    /**
      * Converter of backend data to model format by aliases
      *
      * @param value - data from backend

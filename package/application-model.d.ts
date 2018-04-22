@@ -1,7 +1,16 @@
+import { Type } from './type';
 /**
  * Base class for model implementation
  */
 export declare abstract class Model {
+    /**
+     * Create an instance of pass model class with data
+     *
+     * @param data - json data of modelz
+     * @param {Type<T extends Model>} model - model class to instance
+     * @returns {T} - an instance of new model
+     */
+    static new<T extends Model>(model: Type<T>, data: any): T;
     /**
      * Converter of backend data to model format by aliases
      *
