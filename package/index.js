@@ -116,39 +116,26 @@ exports.Alias = Alias;
 
 "use strict";
 
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 Object.defineProperty(exports, "__esModule", { value: true });
+var static_model_1 = __webpack_require__(3);
 /**
  * Base class for model implementation
  */
-var Model = /** @class */ (function () {
+var Model = /** @class */ (function (_super) {
+    __extends(Model, _super);
     function Model() {
+        return _super !== null && _super.apply(this, arguments) || this;
     }
-    /**
-     * Creates an instance of pass model class with data
-     *
-     * @param data - json data of model
-     * @param {Type<T extends Model>} model - model class to instance
-     * @returns {T} - an instance of new model
-     */
-    Model.new = function (model, data) {
-        var instance = new model();
-        instance._fromJSON(data);
-        return instance;
-    };
-    /**
-     * Creates an instances collection of pass model class with data array
-     *
-     * @param data[] - array of json data of model
-     * @param {Type<T extends Model>} model - model class to instance
-     * @returns {T} - an instance of new model
-     */
-    Model.newCollection = function (model, data) {
-        return data.map(function (x) {
-            var instance = new model();
-            instance._fromJSON(x);
-            return instance;
-        });
-    };
     /**
      * Converter of backend data to model format by aliases
      *
@@ -232,7 +219,7 @@ var Model = /** @class */ (function () {
         }
     };
     return Model;
-}());
+}(static_model_1.StaticModel));
 exports.Model = Model;
 /**
  * @deprecated Use the `AppModel` instead. Will be remove in version 1.0.0
@@ -242,6 +229,47 @@ exports.ApplicationModel = Model;
  * @deprecated Use the `AppModel` instead. Will be remove in version 1.0.0
  */
 exports.AppModel = Model;
+
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var StaticModel = /** @class */ (function () {
+    function StaticModel() {
+    }
+    /**
+     * Creates an instance of pass model class with data
+     *
+     * @param data - json data of model
+     * @param {Type<T extends Model>} model - model class to instance
+     * @returns {T} - an instance of new model
+     */
+    StaticModel.new = function (model, data) {
+        var instance = new model();
+        instance._fromJSON(data);
+        return instance;
+    };
+    /**
+     * Creates an instances collection of pass model class with data array
+     *
+     * @param data[] - array of json data of model
+     * @param {Type<T extends Model>} model - model class to instance
+     * @returns {T} - an instance of new model
+     */
+    StaticModel.newCollection = function (model, data) {
+        return data.map(function (x) {
+            var instance = new model();
+            instance._fromJSON(x);
+            return instance;
+        });
+    };
+    return StaticModel;
+}());
+exports.StaticModel = StaticModel;
 
 
 /***/ })
