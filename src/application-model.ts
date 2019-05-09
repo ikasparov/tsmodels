@@ -46,20 +46,20 @@ export abstract class Model extends StaticModel {
     let keys = Object.keys(this.constructor['_alias']);
 
     if (only) {
-      keys = keys.filter(x => only.indexOf(x) > -1)
+      keys = keys.filter(x => only.indexOf(x) > -1);
     }
 
     keys
       .forEach(
         key => {
-          const value = this[key];
           const item = this.constructor['_alias'][key];
+          const fieldValue = this[item['key']];
 
           if (item['type']) {
-            if (Array.isArray(value)) {
-              obj[item['value']] = value.map(x => x._toJSON());
-            } else if (this._isObject(value)) {
-              obj[item['value']] = value._toJSON();
+            if (Array.isArray(fieldValue)) {
+              obj[item['value']] = fieldValue.map(x => x._toJSON());
+            } else if (this._isObject(fieldValue)) {
+              obj[item['value']] = fieldValue._toJSON();
             }
           } else {
             obj[item['value']] = this[item['key']];
