@@ -152,7 +152,7 @@ var Model = /** @class */ (function (_super) {
     /**
      *
      * @param value - data from backend
-     * @private
+     * @public
      */
     Model.prototype._updateFromJSON = function (value) {
         var _this = this;
@@ -179,14 +179,14 @@ var Model = /** @class */ (function (_super) {
         }
         keys
             .forEach(function (key) {
-            var value = _this[key];
             var item = _this.constructor['_alias'][key];
+            var fieldValue = _this[item['key']];
             if (item['type']) {
-                if (Array.isArray(value)) {
-                    obj[item['value']] = value.map(function (x) { return x._toJSON(); });
+                if (Array.isArray(fieldValue)) {
+                    obj[item['value']] = fieldValue.map(function (x) { return x._toJSON(); });
                 }
-                else if (_this._isObject(value)) {
-                    obj[item['value']] = value._toJSON();
+                else if (_this._isObject(fieldValue)) {
+                    obj[item['value']] = fieldValue._toJSON();
                 }
             }
             else {

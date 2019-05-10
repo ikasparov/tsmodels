@@ -13,7 +13,7 @@ export declare abstract class Model extends StaticModel {
     /**
      *
      * @param value - data from backend
-     * @private
+     * @public
      */
     _updateFromJSON(value: any): void;
     /**
@@ -24,9 +24,9 @@ export declare abstract class Model extends StaticModel {
      * @public
      */
     _toJSON(only?: string[]): {};
-    private _createObject(item, obj);
-    private _isObject(item);
-    private _createItem(value, item);
+    private _createObject;
+    private _isObject;
+    private _createItem;
 }
 /**
  * @deprecated Use the `AppModel` instead. Will be remove in version 1.0.0
