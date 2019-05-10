@@ -23,7 +23,7 @@ export abstract class Model extends StaticModel {
   /**
    *
    * @param value - data from backend
-   * @private
+   * @public
    */
   public _updateFromJSON(value) {
     Object.keys(value).forEach((key) => {
