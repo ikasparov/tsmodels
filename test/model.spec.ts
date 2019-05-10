@@ -37,76 +37,78 @@ const userStub = {
   towns: townsStub
 }
 
-describe('fromJSON', () => {
-  const user = new User();
+describe('Model', () => {
+  describe('fromJSON', () => {
+    const user = new User();
 
-  beforeEach(() => {
-    user._fromJSON(userStub);
-  });
+    beforeEach(() => {
+      user._fromJSON(userStub);
+    });
 
-  it('should convert the field name', () => {
-    expect(user.firstName).toEqual(userStub['first_name']);
-  });
+    it('should convert the field name', () => {
+      expect(user.firstName).toEqual(userStub['first_name']);
+    });
 
-  it('should assing the value with the same name', () => {
-    expect(user.email).toEqual(userStub['email']);
-  })
+    it('should assing the value with the same name', () => {
+      expect(user.email).toEqual(userStub['email']);
+    })
 
-  it('should deserialize single nested model', () => {
-    expect(user.currentAddress.constructor).toEqual(Address);
-    expect(user.currentAddress.city).toEqual(addressStub['city']);
-  });
+    it('should deserialize single nested model', () => {
+      expect(user.currentAddress.constructor).toEqual(Address);
+      expect(user.currentAddress.city).toEqual(addressStub['city']);
+    });
 
-  it('should deserialize array of nested models', () => {
-    user.towns.forEach(town => {
-      expect(town.constructor).toEqual(Town);
+    it('should deserialize array of nested models', () => {
+      user.towns.forEach(town => {
+        expect(town.constructor).toEqual(Town);
+      });
     });
   });
-});
 
-describe('toJSON', () => {
-  const user = new User();
+  describe('toJSON', () => {
+    const user = new User();
 
-  beforeEach(() => {
-    user._fromJSON(userStub);
+    beforeEach(() => {
+      user._fromJSON(userStub);
+    });
+
+    it('should serialize model by aliases map', () => {
+      const userData = user._toJSON();
+      expect(userData).toEqual(userStub);
+    });
+
+    it('should serialize ONLY passed array of aliases', () => {
+      const uData = user._toJSON(['first_name', 'email']);
+
+      expect(uData['first_name']).toEqual(userStub['first_name']);
+      expect(uData['last_name']).toBeUndefined();
+      expect(uData['email']).toEqual(userStub['email']);
+    });
+
+    it('should serialize nested single model', () => {
+      expect(user._toJSON()['address']).toEqual(addressStub);
+    });
+
+    it('should serialize array of nested models', () => {
+      const uData = user._toJSON();
+      expect(uData['towns']).toEqual(townsStub);
+    });
   });
 
-  it('should serialize model by aliases map', () => {
-    const userData = user._toJSON();
-    expect(userData).toEqual(userStub);
-  });
+  describe('updateFromJSON', () => {
+    const user = new User();
 
-  it('should serialize ONLY passed array of aliases', () => {
-    const uData = user._toJSON(['first_name', 'email']);
+    beforeEach(() => {
+      user._fromJSON(userStub);
+    });
 
-    expect(uData['first_name']).toEqual(userStub['first_name']);
-    expect(uData['last_name']).toBeUndefined();
-    expect(uData['email']).toEqual(userStub['email']);
-  });
+    it('should extract the backend data to object', () => {
+      const newUserData = {email: 'new@e.mail', last_name: 'newLastname'};
 
-  it('should serialize nested single model', () => {
-    expect(user._toJSON()['address']).toEqual(addressStub);
-  });
+      expect(user._toJSON()).toEqual(userStub);
 
-  it('should serialize array of nested models', () => {
-    const uData = user._toJSON();
-    expect(uData['towns']).toEqual(townsStub);
-  });
-});
-
-describe('updateFromJSON', () => {
-  const user = new User();
-
-  beforeEach(() => {
-    user._fromJSON(userStub);
-  });
-
-  it('should extract the backend data to object', () => {
-    const newUserData = {email: 'new@e.mail', last_name: 'newLastname'};
-
-    expect(user._toJSON()).toEqual(userStub);
-
-    user._updateFromJSON(newUserData);
-    expect(user._toJSON()).toEqual(Object.assign({}, userStub, newUserData));
+      user._updateFromJSON(newUserData);
+      expect(user._toJSON()).toEqual(Object.assign({}, userStub, newUserData));
+    });
   });
 });
